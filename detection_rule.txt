@@ -1,0 +1,21 @@
+
+
+title: SSH Brute Force Attempt
+id: 8f3a9c2b-1d4e-4f5a-9b2c-3e4f5a6b7c8d
+status: experimental
+description: Detects multiple failed SSH login attempts indicating potential brute force attacks.
+logsource:
+    category: authentication
+    product: linux
+    service: sshd
+detection:
+    selection:
+        message|contains: 'Failed password'
+    condition: selection
+    falsepositives:
+        - Legitimate user authentication failures
+        - Network issues causing connection drops
+level: high
+tags:
+    - attack.credential_access
+    - attack.t1110
